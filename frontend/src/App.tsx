@@ -29,18 +29,28 @@ function App() {
   const [pressureNida, setPressureNida] = useState<number>(1);
 
   const fetchBarometerData = async (city: string) => {
-    try 
-    {
+    try {
+      //saving the selected city for displaying data
       setSelectedCity(city);
+      //fetching to backend
       const res = await fetch(`http://localhost:5000/api/barometer/${city}`);
+      //if response is not ok, throw an error
       if (!res.ok) {
         throw new Error("Failed to fetch data");
       }
+      //parsing the response to json
       const data = await res.json();
+      //if city is Vilnius, set the pressureVilnius to the data received from API
+      //if city is Nida, set the pressureNida to the data received from API
       if (city === "Vilnius") {
         if (pressureVilnius != data.body.barometer) {
+          //saving pressure only if it is different than previous data
           setPressureVilnius(data.body.barometer);
         }
+        //comparing, whether previous pressure is greater than 1 and current pressure is greater than previous pressure
+        //if true, set the rising to "Rising"
+        //if false, set the rising to "Falling"
+        //if both are equal, set the rising to "Stable"
         pressureVilnius > 1 && data.body.barometer > pressureVilnius ? setRising("Rising") :
           data.body.barometer < pressureVilnius ? setRising("Falling") : setRising("Stable");
       }
@@ -51,17 +61,23 @@ function App() {
         pressureNida > 1 && data.body.barometer > pressureNida ? setRising("Rising") :
           data.body.barometer < pressureNida ? setRising("Falling") : setRising("Stable");
       }
+      //setting the weather data to the data received from API
       setWeather(data.body.weather);
     } catch (error) {
       console.error("Error:", error);
+      //if there is an error, set the pressure to 0
       city === "Vilnius" ? setPressureVilnius(0) : setPressureNida(0);
     }
   };
 
+  //useEffect hook to fetch the data from API on initial render
   useEffect(() => {
     fetchBarometerData("Vilnius");
     fetchBarometerData("Nida");
   }, []);
+
+  //function to get the rotation of the arrow based on the
+  //pressure received from API
   const getRotation = (pressure: number) => {
     const minPressure = 950;
     const maxPressure = 1050;
@@ -71,7 +87,8 @@ function App() {
     return rotation;
   };
 
-
+  //function to get the weather icon based on the weather code received from API according to WMO weather code
+  // and appropriate description
   const getWeatherIconUrl = (weatherCode: number) => {
     const iconMap: { [key: number]: { icon: string, description: string } } = {
       0: { icon: "01d", description: "Clear sky" },
@@ -103,12 +120,14 @@ function App() {
       96: { icon: "11d", description: "Thunderstorm with slight hail" },
       99: { icon: "11d", description: "Thunderstorm with heavy hail" }
     };
+    //if not weather code is not present - default to clear sky
     const { icon, description } = iconMap[weatherCode] || { icon: "01d", description: "Clear sky" };
     return { url: `http://openweathermap.org/img/wn/${icon}.png`, description };
   };
-
+  //getting the weather icon url and description from received weather code
   const { url: weatherIconUrl, description: weatherDescription } = getWeatherIconUrl(weather.weathercode);
 
+  //function to render the steps of the barometer
   const renderSteps = () => {
     const steps = [];
     const minPressure = 950;

@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = process.env.PORT || 5000;
-
+//route to get barometer data to weather.js function
 app.get('/api/barometer/:city', async (req, res) => {
   const { city } = req.params;
   try {
