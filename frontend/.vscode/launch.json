@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch React App in Chrome",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:3000",  // Adjust the URL if your dev server is on a different port
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMapPathOverrides": {
+          "webpack:///*": "${webRoot}/*"
+        }
+      },
+      {
+        "name": "Attach to React App",
+        "type": "chrome",
+        "request": "attach",
+        "port": 9222,  // Default debugging port for Chrome
+        "webRoot": "${workspaceFolder}/src"
+      }
+    ]
+  }
