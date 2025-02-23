@@ -22,7 +22,7 @@ git clone https://github.com/kestutisklimanskas/WeatherApp.git
 ```
 2. Navigate to the front-end directory:
 ```
-cd barometer-app/frontend
+cd WeatherApp/frontend
 ```
 3. Install the dependencies:
 ```
@@ -38,7 +38,7 @@ npm install @types/react @types/react-dom --save-dev
 ```
 6. Navigate to the back-end directory:
 ```
-cd barometer-app/backend
+cd WeatherApp/backend
 ```
 7. Install the dependencies:
 ```
@@ -58,13 +58,13 @@ Make sure to open both folders separately (front-end and back-end) in Visual Stu
 the terminals:
 
 ```
-cd barometer-app/backend
+cd WeatherApp/backend
 ```
 
 And
 
 ```
-cd barometer-app/frontend
+cd WeatherApp/frontend
 ```
 
 1. To start the front-end part of the project, open the folder in Visual Studio Code, create a terminal and use command line given below.
