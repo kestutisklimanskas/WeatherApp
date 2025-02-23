@@ -32,12 +32,13 @@ npm install
 ```
 npm install typescript --save-dev
 ```
-5. Install TypeScript types for React
+5. Install TypeScript types for React (in case of errors just skip this step)
 ```
 npm install @types/react @types/react-dom --save-dev
 ```
 6. Navigate to the back-end directory:
 ```
+cd ..
 cd WeatherApp/backend
 ```
 7. Install the dependencies:
